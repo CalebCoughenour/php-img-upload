@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  // imports database connection
+  include_once 'dbh.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
