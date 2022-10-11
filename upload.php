@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+include_once 'dbh.php';
+$id = $_SESSION['id'];
+
 // this checks if the button named submit has been clicked
 if (isset($_POST['submit'])) {
   // _FILES[] targets the submitted file from the form name file
@@ -30,11 +35,13 @@ if (isset($_POST['submit'])) {
         // start uploading file
 
         // names file something unique so names won't be overwritten also appends file type to end
-        $fileNameNew = uniqid('', true).".".$fileActualExt;
+        $fileNameNew = "profile".$id.".".$fileActualExt;
         // set path for uploading file
         $fileDestination = 'uploads/'.$fileNameNew;
 
         move_uploaded_file($fileTmpName, $fileDestination);
+        $sql = "UPDATE profileimg SET status=0 WHERE userid='$id'";
+        $result = mysqli_query($conn, $sql);
         header("Location: index.php?uploadsuccess");
 
       } else {
